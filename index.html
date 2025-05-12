@@ -3,112 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>25 Тооны Шалгалт: y өсөх/буурах интервал</title>
+  <title>функц өсөх буурах </title>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; color: #333; margin: 0; padding: 20px; }
-    header { text-align: center; margin-bottom: 20px; }
-    header h1 { font-size: 2em; margin: 0; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-    .item { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
-    .item label { display: block; font-weight: bold; margin-bottom: 8px; }
-    .item input { width: 100%; padding: 6px; margin-bottom: 6px; border: 1px solid #aaa; border-radius: 4px; }
-    .item button { width: 100%; padding: 8px; background: #3b82f6; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-    .item button:hover { background: #2563eb; }
-    .feedback { margin-top: 6px; font-style: italic; }
-    .feedback.correct { color: #16a34a; }
-    .feedback.incorrect { color: #dc2626; }
-    .controls { text-align: center; margin: 20px 0; }
-    .controls button { padding: 10px 16px; margin: 0 8px; background: #ef4444; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2em;
+      margin: 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .item {
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Функц өсөх буурах</h1>
+    <h1>Функцийн өсөх буурах </h1>
   </header>
-  <div class="controls">
-    <button id="resetBtn">Дахин Эхлэх</button>
-
-  </div>
   <div class="grid" id="quiz"></div>
 
   <script>
     const problems = [
-      { q: 'y = 2x + 3', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = -5x + 1', inc: '0', dec: '(-∞ ∞)' },
-      { q: 'y = x²', inc: '[0 ∞)', dec: '(-∞ 0]' },
-      { q: 'y = -x²', inc: '(-∞ 0]', dec: '[0 ∞)' },
-      { q: 'y = x³', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = -x³', inc: '0', dec: '(-∞ ∞)' },
-      { q: 'y = 3x² - 6x + 2', inc: '(-∞ 1)', dec: '(1 ∞)' },
-      { q: 'y = -2x² + 4x - 1', inc: '(-∞ 1)', dec: '(1 ∞)' },
-      { q: 'y = eˣ', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = ln(x)', inc: '(0 ∞)', dec: '0' },
-      { q: 'y = √x', inc: '[0 ∞)', dec: '0' },
-      { q: 'y = 1/x', inc: '(0 ∞)', dec: '(-∞ 0)' },
-      { q: 'y = x/(x²+1)', inc: '(-1 1)', dec: '(-∞ -1)U(1 ∞)' },
-      { q: 'y = 2ˣ', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = -2ˣ', inc: '0', dec: '(-∞ ∞)' },
-      { q: 'y = tan(x) (0 π)', inc: '(0 π/2)', dec: '(π/2 π)' },
-      { q: 'y = sin(x) (0 2π)', inc: '(π/2 5π/2)', dec: '(5π/2 2π)' },
-      { q: 'y = 4x - 2', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = x + 1', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = 5x - 5', inc: '(-∞ ∞)', dec: '0' },
-      { q: 'y = x² - 4x + 3', inc: '(-∞ 2)', dec: '(2 ∞)' },
-      { q: 'y = -x² + 2x - 1', inc: '(-∞ 1)', dec: '(1 ∞)' },
-      { q: 'y = x² + 6x + 9', inc: '(-∞ -3)', dec: '(-3 ∞)' },
-      { q: 'y = -3x + 7', inc: '0', dec: '(-∞ ∞)' },
-      { q: 'y = x² - 2x', inc: '(1 ∞)', dec: '(-∞ 1)' }
+      '1. Функц y = 2x + 3 нь ямар интервал дээр өсөх вэ, буурах уу?',
+      '2. Функц y = -5x + 1-ийн өсөх болон буурах чиглэлийг тодорхойл.',
+      '3. y = x² функцийн өсөх болон буурах интервалуудыг ол.',
+      '4. y = -x² функц хаана буурч, хаана өсдөг вэ?',
+      '5. y = x³ функцийн өсөлт ба бууралтыг судал.',
+      '6. y = -x³ функцийн өсөх, буурах чиглэлийг олоорой.',
+      '7. y = 3x² - 6x + 2 квадратын функцийн өсөх, буурах интервалуудыг тодорхойл.',
+      '8. y = -2x² + 4x - 1 функц хаана буурч, хаана өсөх вэ?',
+      '9. y = eˣ экспоненциал функцийн өсөлт бууралтыг тайлбарла.',
+      '10. y = ln(x) логарифмын функцийн өсөх чиглэлийг тодорхойл.',
+      '11. y = √x функц хаана өсдөг вэ?',
+      '12. y = 1/x функцийн өсөх ба буурах интервалуудыг судал.',
+      '13. y = x / (x² + 1) функц хаана өсч, хаана буурдаг вэ?',
+      '14. y = 2ˣ функцийн өсөх чиглэлийг тайлбарла.',
+      '15. y = -2ˣ функцийн буурах чиглэлийг тодорхойл.',
+      '16. y = tan(x) функц (0, π) интервал дээр хэрхэн өөрчлөгдөж байна вэ?',
+      '17. y = sin(x) функц (0, 2π) интервал дээр өсч, буурах хэсгүүдийг олоорой.',
+      '18. y = 4x - 2 функцийн өсөх чиглэлийг судал.',
+      '19. y = x + 1 функц хаана өсдөг вэ?',
+      '20. y = 5x - 5 функцийн өсөх чиглэлийг тодорхойл.',
+      '21. y = x² - 4x + 3 функцийн өсөх ба буурах интервалуудыг ол.',
+      '22. y = -x² + 2x - 1 функцийн өсөлт, бууралтын чиглэлийг тайлбарла.',
+      '23. y = x² + 6x + 9 функцийн өсөх, буурах интервалуудыг тодорхойл.',
+      '24. y = -3x + 7 функцийн буурах чиглэлийг судал.',
+      '25. y = x² - 2x функцийн өсөх ба буурах чиглэлийг тодорхойл.'
     ];
 
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-    }
-
     function render() {
-      shuffle(problems);
       const container = document.getElementById('quiz');
       container.innerHTML = '';
-      problems.forEach((p, i) => {
-        const div = document.createElement('div'); div.className = 'item';
-        div.innerHTML = `
-          <label>${i+1}. ${p.q}</label>
-          <input type='text' id='inc${i}' placeholder='өсөх интервал' />
-          <input type='text' id='dec${i}' placeholder='буурах интервал' />
-          <button data-i='${i}'>Шалгах</button>
-          <div id='fb${i}' class='feedback'></div>`;
+      problems.forEach((text) => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.textContent = text;
         container.appendChild(div);
       });
-      document.querySelectorAll('.item button').forEach(btn => {
-        btn.onclick = () => {
-          const i = btn.dataset.i;
-          const incIn = document.getElementById(`inc${i}`).value.trim();
-          const decIn = document.getElementById(`dec${i}`).value.trim();
-          const fb = document.getElementById(`fb${i}`);
-          const corr = problems[i];
-          if (incIn === corr.inc && decIn === corr.dec) {
-            fb.textContent = '✅ Зөв!'; fb.className = 'feedback correct';
-          } else {
-            fb.textContent = '❌ Буруу!'; fb.className = 'feedback incorrect';
-          }
-          btn.disabled = true;
-        };
-      });
     }
-
-    document.getElementById('resetBtn').onclick = render;
-    document.getElementById('showAll').onclick = () => {
-      problems.forEach((p, i) => {
-        document.getElementById(`inc${i}`).value = p.inc;
-        document.getElementById(`dec${i}`).value = p.dec;
-        document.querySelector(`[data-i='${i}']`).disabled = true;
-      });
-    };
 
     window.onload = render;
   </script>
 </body>
-</html>
